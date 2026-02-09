@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Workout Generator</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <header class="app-header">
+            <h1 class="logo-text">Workout Generator <span class="title-emoji emoji-icon">💪</span></h1>
+            <div class="auth-area">
+                <span id="user-name" class="user-name hidden"></span>
+                <button id="account-btn" class="account-btn">Account</button>
+                <button id="progress-btn" class="account-btn">My Progress</button>
+            </div>
+        </header>
+
+        <!-- Auth Modal -->
+        <div id="auth-modal" class="modal hidden">
+            <div class="modal-content">
+                <button class="modal-close" id="auth-close">&times;</button>
+                <h3>Account</h3>
+                <div id="auth-tabs">
+                    <button class="auth-tab active" data-tab="login">Login</button>
+                    <button class="auth-tab" data-tab="register">Register</button>
+                </div>
+                <form id="login-form" class="auth-form">
+                    <input type="text" name="username" placeholder="Username" required>
+                    <input type="password" name="password" placeholder="Password" required>
+                    <button type="submit">Login</button>
+                </form>
+                <form id="register-form" class="auth-form hidden">
+                    <input type="text" name="username" placeholder="Username" required>
+                    <input type="email" name="email" placeholder="Email" required>
+                    <input type="password" name="password" placeholder="Password" required>
+                    <button type="submit">Register</button>
+                </form>
+                <p id="auth-error" class="auth-error hidden"></p>
+            </div>
+        </div>
+
+        <!-- Progress View -->
+        <main id="progress-view" class="view">
+            <div class="progress-container">
+                <h2>My Progress</h2>
+                <p id="progress-login-prompt" class="login-prompt">Log in to track your progress.</p>
+                <div id="progress-content" class="hidden">
+                    <section class="progress-section">
+                        <h3>Recent Workouts</h3>
+                        <div id="workout-history"></div>
+                    </section>
+                    <section class="progress-section">
+                        <h3>Exercise Log</h3>
+                        <div id="progress-log"></div>
+                        <form id="log-progress-form" class="log-form">
+                            <input type="text" id="log-exercise" placeholder="Exercise name" required>
+                            <input type="number" id="log-sets" placeholder="Sets" min="1">
+                            <input type="number" id="log-reps" placeholder="Reps" min="1">
+                            <button type="submit">Log</button>
+                        </form>
+                    </section>
+                </div>
+                <button id="progress-back" class="btn-primary">Back</button>
+            </div>
+        </main>
+
+        <!-- Homepage View -->
+        <main id="homepage" class="view active">
+            <h1 class="page-title">Create your workout</h1>
+
+            <div class="content-layout">
+                <form class="workout-form" id="workout-form">
+                    <section class="form-section">
+                        <h2 class="form-heading">Available equipment:</h2>
+                        <div class="checkbox-grid">
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="equipment" value="treadmill">
+                                <span class="checkmark"></span>
+                                <span class="emoji-icon">🏃</span> Treadmill
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="equipment" value="weights">
+                                <span class="checkmark"></span>
+                                <span class="emoji-icon">🏋️</span> Weights
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="equipment" value="bike">
+                                <span class="checkmark"></span>
+                                <span class="emoji-icon">🚴</span> Bike
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="equipment" value="yoga_ball">
+                                <span class="checkmark"></span>
+                                <span class="emoji-icon">🧘</span> Yoga ball
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="equipment" value="pull_up_bar">
+                                <span class="checkmark"></span>
+                                <span class="emoji-icon">💪</span> Pull-up bar
+                            </label>
+                        </div>
+                    </section>
+
+                    <section class="form-section">
+                        <h2 class="form-heading">Type of exercise:</h2>
+                        <div class="checkbox-grid">
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="exercise_type" value="cardio">
+                                <span class="checkmark"></span>
+                                <span class="emoji-icon">❤️</span> Cardio
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="exercise_type" value="strength">
+                                <span class="checkmark"></span>
+                                <span class="emoji-icon">💪</span> Strength
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="exercise_type" value="flexibility">
+                                <span class="checkmark"></span>
+                                <span class="emoji-icon">🧘</span> Flexibility
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="exercise_type" value="balance">
+                                <span class="checkmark"></span>
+                                <span class="emoji-icon">⚖️</span> Balance
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="exercise_type" value="stamina">
+                                <span class="checkmark"></span>
+                                <span class="emoji-icon">🏃</span> Stamina
+                            </label>
+                        </div>
+                    </section>
+
+                    <section class="form-section">
+                        <h2 class="form-heading">Number of reps:</h2>
+                        <div class="input-row">
+                            <input type="number" name="reps" id="reps-input" min="1" max="100" placeholder="e.g. 10" class="reps-input">
+                        </div>
+                    </section>
+
+                    <button type="submit" class="generate-btn">Generate Workout</button>
+                </form>
+
+                <div class="video-overlay">
+                    <div class="video-placeholder">
+                        <span class="video-icon emoji-icon">🏋️</span>
+                        <p>Add your workout demo video here</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Results View -->
+        <main id="results-view" class="view">
+            <div class="results-container">
+                <h2>Your Personalized Workout</h2>
+                <div id="workout-results"></div>
+                <div class="results-actions">
+                    <button id="save-workout-btn" class="btn-secondary hidden">Save Workout</button>
+                    <button id="back-home" class="btn-primary">Back to Home</button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="/static/js/app.js"></script>
+</body>
+</html>
